@@ -1,0 +1,20 @@
+{
+  "name": "social-media-app",
+  "version": "1.0.0",
+  "description": "This site is for restaurants to have a virtual platform to showcase their menu items to potential patrons. Patrons are able to comment on the restaurant's post to share their 'inside scoop' on customer experience/opinion.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlcunningham2101/social-media-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlcunningham2101/social-media-app/issues"
+  },
+  "homepage": "https://github.com/jlcunningham2101/social-media-app#readme"
+}
