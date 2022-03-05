@@ -10,7 +10,9 @@ INSERT INTO restaurant
   (user_role, username, user_password, email)
 
   VALUES
-  ()
+  ('coffee123','coffeeshop2','bitetea@coffee.com')
+  ('bbqeats','bbqshop3','mission@bbq.com')
+  ('mofongo', 'bodega12', 'mofongo@shop.com')
 
   INSERT INTO user
   (user_type_id)
