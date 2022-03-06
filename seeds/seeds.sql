@@ -6,11 +6,12 @@ INSERT INTO restaurant
   ('Mission BBQ', 'BBQ Restaurant', '785 Queen Street', 'Southington', '860-837-0497', 'www.mission-bbq.com', 'Mouth-watering all American food that is done right!'),
   ('La Bodega Del Mofongo', 'Puerto Rican Cuisine', '4 Crescent Avenue', 'Bridgeport', '203-612-8131', 'www.labodegadelmofongo.com', 'Spanish food with a twist' )
 
-  INSERT INTO user_type
+INSERT INTO user_type
   (user_role, username, user_password, email)
 
   VALUES
   ()
+  
 
   INSERT INTO user
   (user_type_id)
