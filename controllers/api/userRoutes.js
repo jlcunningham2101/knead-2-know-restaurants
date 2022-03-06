@@ -1,100 +1,160 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../../db/connection');
-const inputCheck = require('../../utils/inputCheck');
+const router = require('express').Router();
+const { User, Post, Comment, Vote } = require('../../models');
 
-// Get all users
-router.get('/user', (req, res) => {
-    const sql = `SELECT * FROM user`;
-  
-    db.query(sql, (err, rows) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
+// get all users
+router.get('/', (req, res) => {
+  User.findAll({
+    attributes: { exclude: ['password'] }
+  })
+    .then(dbUserData => res.json(dbUserData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+router.get('/:id', (req, res) => {
+  User.findOne({
+    attributes: { exclude: ['password'] },
+    where: {
+      id: req.params.id
+    },
+    include: [
+      {
+        model: Post,
+        attributes: ['id', 'title', 'post_url', 'created_at']
+      },
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'created_at'],
+        include: {
+          model: Post,
+          attributes: ['title']
+        }
+      },
+      {
+        model: Post,
+        attributes: ['title'],
+        through: Vote,
+        as: 'voted_posts'
+      }
+    ]
+  })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No user found with this id' });
         return;
       }
-      res.json({
-        message: 'Here are all of the users in our database!',
-        data: rows
-      });
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
     });
-  });
+});
 
-//get 1 user by ID
-router.get('/user/:id', (req, res) => {
-  const sql = `SELECT * FROM user WHERE id = ?`;
-  const params = [req.params.id];
+router.post('/', (req, res) => {
+  // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
+  User.create({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password
+  })
+    .then(dbUserData => {
+      req.session.save(() => {
+        req.session.user_id = dbUserData.id;
+        req.session.username = dbUserData.username;
+        req.session.loggedIn = true;
+  
+        res.json(dbUserData);
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
-  db.query(sql, params, (err, row) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
+router.post('/login', (req, res) => {
+  // expects {email: 'lernantino@gmail.com', password: 'password1234'}
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(dbUserData => {
+    if (!dbUserData) {
+      res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
-    res.json({
-      message: 'Your requested user account has been found!',
-      data: row
+
+    const validPassword = dbUserData.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.user_id = dbUserData.id;
+      req.session.username = dbUserData.username;
+      req.session.loggedIn = true;
+  
+      res.json({ user: dbUserData, message: 'You are now logged in!' });
     });
   });
 });
 
-//Create a user
- app.post('/api/user', ({ body }, res) => {
-    const errors = inputCheck(
-      body,
-      'id',
-      'user_type_id',
-      );
-    if (errors) {
-      res.status(400).json({ error: errors });
-      return;
-    }
-
-//update a user
-router.put('/user/:id', (req, res) => {
-  const errors = inputCheck(req.body, 'user_type_id');
-  if (errors) {
-    res.status(400).json({ error: errors });
-    return;
+router.post('/logout', (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
   }
-
-  const sql = `UPDATE user SET user_type_id = ? WHERE id = ?`;
-  const params = [req.params.id];
-
-  db.query(sql, params, (err, result) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
-    } else if (!result.affectedRows) {
-      res.json({
-        message: 'User not found'
-      });
-    } else {
-      res.json({
-        message: 'Your user account update was a success!',
-        data: req.body,
-        changes: result.affectedRows
-      });
-    }
-  });
+  else {
+    res.status(404).end();
+  }
 });
 
- //delete a restaurant
- router.delete('/user/:id', (req, res) => {
-  const sql = `DELETE FROM user WHERE id = ?`;
+router.put('/:id', (req, res) => {
+  // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
 
-  db.query(sql, req.params.id, (err, result) => {
-    if (err) {
-      res.status(400).json({ error: res.message });
-    } else if (!result.affectedRows) {
-      res.json({
-        message: 'User account not found'
-      });
-    } else {
-      res.json({
-        message: 'Your user account has been deleted!',
-        changes: result.affectedRows,
-        id: req.params.id
-      });
+  // pass in req.body instead to only update what's passed through
+  User.update(req.body, {
+    individualHooks: true,
+    where: {
+      id: req.params.id
     }
-  });
+  })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
-  module.exports = router;
+router.delete('/:id', (req, res) => {
+  User.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(dbUserData => {
+      if (!dbUserData) {
+        res.status(404).json({ message: 'No user found with this id' });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+module.exports = router;
