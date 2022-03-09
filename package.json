@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jlcunningham2101/social-media-app/issues"
   },
-  "homepage": "https://github.com/jlcunningham2101/social-media-app#readme"
+  "homepage": "https://github.com/jlcunningham2101/social-media-app#readme",
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
 }
