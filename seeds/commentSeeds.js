@@ -14,6 +14,8 @@ const commentdata = [
   },
   {
     comment_text: 'I went here with friends over the weekend. The food was okay, but the atmosphere was really warm and welcoming.'
+    user_id: 12,
+    post_id: 13
   },
   
   {
