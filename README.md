@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This site is for restaurants to have a virtual platform to showcase their menu items to potential patrons. Patrons are able to comment on the restaurant's post to share their 'inside scoop' on customer experience/opinion.
+Knead to Know Resturants is a blog for restaurants to have a virtual platform to showcase their menu items to potential patrons. Patrons and fellow restaurant owners who have an account with 'Knead to Know Restaurants' are able to post or comment on blog posts to share their 'inside scoop' on their experience.
 
 ## Installation
 
@@ -12,10 +12,13 @@ HTML5, CSS3, Javascript, Express.js, Cloudinary, MySQL/Seqeulize
 
 ## Contributors
 
-Jillian Cunningham, Aaron Laramee, ND Shahbaaz Mustafa
+Jillian Cunningham, Aaron Laramee, and Shahbaaz Mustafa
 
 ## FAQ
 
 ## Webpage Screenshots
 
 ## Deployed Links
+
+https://github.com/jlcunningham2101/social-media-app
+https://github.com/jlcunningham2101/social-media-app.git
