@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 INSERT INTO restaurant
   (restaurant_name, food_type, business_address, city, phone_number, website, food_description)
 
@@ -30,4 +28,3 @@ INSERT INTO restaurant
   (business_id, user_id, menu_rating, description)
   VALUES
   ()
->>>>>>> 4ac0cd537599e5c1aaae28e99564586108b04cba

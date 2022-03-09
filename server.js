@@ -1,5 +1,5 @@
 //dependencies
-var cloudinary = require('cloudinary').v2;
+//var cloudinary = require('cloudinary').v2;
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
