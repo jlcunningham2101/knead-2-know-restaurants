@@ -271,7 +271,7 @@ section {
 /* WHAT WE DO STYLES */
 .intro p {
   line-height: 1.7;
-  color: var(--tertiary-color);
+  color: var(--secondary-color);
   width: 80%;
   margin: 0 auto;
   font-size: 20px;
