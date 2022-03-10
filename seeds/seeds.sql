@@ -1,4 +1,4 @@
-INSERT INTO restaurant
+/*INSERT INTO restaurant
   (restaurant_name, food_type, business_address, city, phone_number, website, food_description)
 
   VALUES
