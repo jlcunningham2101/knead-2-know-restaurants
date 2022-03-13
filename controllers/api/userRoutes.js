@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post, Comment, Vote } = require('../../models');
+const { User, Comment } = require('../../models');
 
 // get all users
 router.get('/', (req, res) => {
@@ -13,33 +13,17 @@ router.get('/', (req, res) => {
     });
 });
 
+//find one user
 router.get('/:id', (req, res) => {
   User.findOne({
     attributes: { exclude: ['password'] },
     where: {
-      id: req.params.id
+    id: req.params.id
     },
-    include: [
-      {
-        model: Post,
-        attributes: ['id', 'title', 'post_url', 'created_at']
-      },
-      {
-        model: Comment,
-        attributes: ['id', 'comment_text', 'created_at'],
-        include: {
-          model: Post,
-          attributes: ['title']
-        }
-      },
-      {
-        model: Post,
-        attributes: ['title'],
-        through: Vote,
-        as: 'voted_posts'
-      }
-    ]
+    model: Comment,
+      attributes: ['id', 'comment_text', 'atmosphere', 'staff_experience', 'speed', 'rating', 'user_id', 'restaurant_id']
   })
+
     .then(dbUserData => {
       if (!dbUserData) {
         res.status(404).json({ message: 'No user found with this id' });
@@ -53,8 +37,8 @@ router.get('/:id', (req, res) => {
     });
 });
 
+//create a new user
 router.post('/', (req, res) => {
-  // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   User.create({
     username: req.body.username,
     email: req.body.email,
@@ -75,15 +59,15 @@ router.post('/', (req, res) => {
     });
 });
 
+  // expects email and password for existing user
 router.post('/login', (req, res) => {
-  // expects {email: 'lernantino@gmail.com', password: 'password1234'}
   User.findOne({
     where: {
       email: req.body.email
     }
   }).then(dbUserData => {
     if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that email address!' });
+      res.status(400).json({ message: 'No user with that email address exists!' });
       return;
     }
 
@@ -99,11 +83,12 @@ router.post('/login', (req, res) => {
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
   
-      res.json({ user: dbUserData, message: 'You are now logged in!' });
+      res.json({ user: dbUserData, message: 'You have successfully logged in to Knead 2 Know Restaurants!' });
     });
   });
 });
 
+//allows user to logout
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -115,11 +100,9 @@ router.post('/logout', (req, res) => {
   }
 });
 
+//updates user details
 router.put('/:id', (req, res) => {
-  // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
-
-  // pass in req.body instead to only update what's passed through
-  User.update(req.body, {
+    User.update(req.body, {
     individualHooks: true,
     where: {
       id: req.params.id
@@ -138,6 +121,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+//deletes a user
 router.delete('/:id', (req, res) => {
   User.destroy({
     where: {

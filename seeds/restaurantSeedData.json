@@ -1,0 +1,58 @@
+[
+    {
+    "restaurant_name": "Harvest Bakery, Inc.", 
+    "restaurant_type": "Bakery", 
+    "phone": "860-589-8800",
+    "website": "www.harvestbarkeyinc.com",
+    "address": "84 Farmington Avenue Bristol, CT 06010",
+    "image": "/images/harvestbakery.jpg"
+    },
+
+    {
+    "restaurant_name": "Bite & Tea", 
+    "restaurant_type": "Bakery", 
+    "phone": "860-973-3065",
+    "website": "www.biteandtea.com",
+    "address": "123 Farmington Avenue Bristol, CT 06010",
+    "image": "/images/biteandtea.jpg"
+    },
+
+    {
+    "restaurant_name": "Pavilion Restaurant", 
+    "restaurant_type": "Italian", 
+    "phone": "860-583-1359",
+    "website": "www.pavilionrestaurantmenu.com",
+    "address": "781 King Street Bristol, CT 06010",
+    "image": "/images/pavilionrest.jpg"
+    },
+    {
+    "restaurant_name": "Don Bigote Mexican Restaurant", 
+    "restaurant_type": "Mexican", 
+    "phone": "860-351-5250",
+    "website": "www.facebook.com/donebigotect",
+    "address": "54 West Main Street Plainville, CT 06010",
+    "image": "/images/donbigote.jpg"
+    },
+
+    {
+    "restaurant_name": "Fresh Worx", 
+    "restaurant_type": "Fast Food", 
+    "phone": "860-506-4203",
+    "website": "www.freshcraftgrille.com",
+    "address": "650 Farmington Avenue Bristol, CT 06010",
+    "image": "/images/freshworx.jpg"
+    }, 
+    {
+    "restaurant_name": "Bertie's West Indian Restaurant", 
+    "restaurant_type": "West Indian", 
+    "phone": "203-757-4330",
+    "website": "www.bertiesrestaurant.com",
+    "address": "928 N Main Street Waterbury, CT 06010",
+    "image": "/images/berties.jpg"
+    }
+]
+
+
+
+
+

@@ -1,0 +1,24 @@
+[
+{
+    "comment_text":"I have been there too! Everything on the menu is awesome!",
+    "user_id": 1,
+    "post_id":5
+},
+{
+    "comment_text":"I know the owner, Bob! He is a great guy. Sorry you had a bad experience",
+    "user_id": 2,
+    "post_id":4
+},{
+    "comment_text":"I went once and said never again - the cashier was collecting food AND cooking without gloves",
+    "user_id": 3,
+    "post_id":3
+},{
+    "comment_text":"I am shocked you were in and out so quick. I go in the morning and it takes forever",
+    "user_id": 4,
+    "post_id":2
+},{
+    "comment_text":"Thanks for the heads up! They are close to my house, but I never got the courage to try their food out",
+    "user_id": 5,
+    "post_id":1
+}
+]

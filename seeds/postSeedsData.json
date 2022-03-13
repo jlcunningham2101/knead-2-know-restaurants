@@ -1,0 +1,47 @@
+[
+  {
+    "post_text": "I would highly recommend going here",
+    "atmosphere": "Satisfying",
+    "staff_experience": "Amazing",
+    "speed": "Average",
+    "rating": 10,
+    "user_id": 5,
+    "restaurant_id": 1
+  },
+  {
+    "post_text": "No surprises here! Easy place to grab food if you're in a hurry",
+    "atmosphere": "Unsatisfying",
+    "staff_experience": "Met Expectations",
+    "speed": "Fast",
+    "rating": 8,
+    "user_id":4,
+    "restaurant_id": 2
+  },
+  {
+    "post_text": "I came here for a bite after work and was disappointed. They don't even follow COVID guidelines!",
+    "atmosphere":"Mediocre",
+    "staff_experience": "Below expectations",
+    "speed": "Slow",
+    "rating": 6,
+    "user_id":3,
+    "restaurant_id": 3
+  },
+  {
+    "post_text": "The staff team was nice and the owner was super apologetic about mixing up my order since the online ordering system was down",
+    "atmosphere": "Unsatisfying",
+    "staff_experience": "Met Expectations",
+    "speed": "Average",
+    "rating": 7,
+    "user_id": 2,
+    "restaurant_id": 4
+  },
+  {
+    "post_text": "The food hit all the right spots - always great to have amazing food with friendly faces.",
+    "atmosphere": "Satisfying",
+    "staff_experience": "Amazing",
+    "speed": "Fast",
+    "rating": 1,
+    "user_id":1,
+    "restaurant_id": 4
+  } 
+]

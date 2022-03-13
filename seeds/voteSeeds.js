@@ -1,4 +1,4 @@
-const { Vote } = require('../models');
+/*const { Vote } = require('../models');
 
 const votedata = [
   {
@@ -27,3 +27,4 @@ const votedata = [
 const seedVotes = () => Vote.bulkCreate(votedata);
 
 module.exports = seedVotes;
+*/
