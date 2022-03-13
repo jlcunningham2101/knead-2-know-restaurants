@@ -1,33 +1,31 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
-const { Post, User, Comment, Vote } = require('../../models');
+const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// get all users
+// get all posts
 router.get('/', (req, res) => {
   console.log('======================');
   Post.findAll({
     attributes: [
       'id',
-      'post_url',
-      'title',
-      'created_at',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      'post_text',
+      'atmosphere',
+      'staff_experience',
+      'rating',
+      'user_id',
+      'restaurant_id'
     ],
     include: [
       {
         model: Comment,
-        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        attributes: ['id', 'comment_text', 'user_id', 'post_id'],
         include: {
           model: User,
           attributes: ['username']
         }
       },
-      {
-        model: User,
-        attributes: ['username']
-      }
-    ]
+          ]
   })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -36,6 +34,7 @@ router.get('/', (req, res) => {
     });
 });
 
+//get one post
 router.get('/:id', (req, res) => {
   Post.findOne({
     where: {
@@ -43,15 +42,17 @@ router.get('/:id', (req, res) => {
     },
     attributes: [
       'id',
-      'post_url',
-      'title',
-      'created_at',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      'post_text',
+      'atmosphere',
+      'staff_experience',
+      'rating',
+      'user_id',
+      'restaurant_id',
     ],
     include: [
       {
         model: Comment,
-        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+        attributes: ['id', 'comment_text', 'user_id', 'post_id'],    
         include: {
           model: User,
           attributes: ['username']
@@ -76,12 +77,15 @@ router.get('/:id', (req, res) => {
     });
 });
 
+//create a post
 router.post('/', withAuth, (req, res) => {
-  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
   Post.create({
-    title: req.body.title,
-    post_url: req.body.post_url,
-    user_id: req.session.user_id
+    post_text: req.body.post_text,
+    atmosphere: req.body.atmosphere,
+    staff_experience: req.body.staff_experience,
+    rating: req.body.rating,
+    user_id: req.session.user_id,
+    restaurant_id: req.body.restaurant_id,
   })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
@@ -90,7 +94,7 @@ router.post('/', withAuth, (req, res) => {
     });
 });
 
-router.put('/upvote', withAuth, (req, res) => {
+/* router.put('/upvote', withAuth, (req, res) => {
   // custom static method created in models/Post.js
   Post.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
     .then(updatedVoteData => res.json(updatedVoteData))
@@ -99,11 +103,13 @@ router.put('/upvote', withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+*/
 
+//update a post
 router.put('/:id', withAuth, (req, res) => {
   Post.update(
     {
-      title: req.body.title
+      post_text: req.body.post_text,
     },
     {
       where: {
@@ -124,6 +130,7 @@ router.put('/:id', withAuth, (req, res) => {
     });
 });
 
+//delete a post
 router.delete('/:id', withAuth, (req, res) => {
   console.log('id', req.params.id);
   Post.destroy({
@@ -144,4 +151,4 @@ router.delete('/:id', withAuth, (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router; 

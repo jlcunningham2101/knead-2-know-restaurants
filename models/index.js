@@ -1,69 +1,113 @@
 // import all models
 const Post = require('./Post');
 const User = require('./User');
-const Vote = require('./Vote');
 const Comment = require('./Comment');
+const Restaurant = require('./Restaurant');
+//const Vote = require('./Vote');
 
-// create associations
-User.hasMany(Post, {
-  foreignKey: 'user_id'
-});
-
+// create Post associations
 Post.belongsTo(User, {
   foreignKey: 'user_id',
   onDelete: 'SET NULL'
 });
 
-User.belongsToMany(Post, {
-  through: Vote,
-  as: 'voted_posts',
-
-  foreignKey: 'user_id',
-  onDelete: 'SET NULL'
+Post.belongsTo(Restaurant, {
+  foreignKey: 'restaurant_id'
 });
 
-Post.belongsToMany(User, {
+Post.hasMany(Comment, {
+  foriegnKey: 'post_id'
+});
+
+/*Post.belongsToMany(User, {
   through: Vote,
   as: 'voted_posts',
   foreignKey: 'post_id',
   onDelete: 'SET NULL'
 });
 
-Vote.belongsTo(User, {
+Post.hasMany(Vote, {
+  foreignKey: 'post_id'
+});
+*/
+
+//create user associations
+User.hasMany(Post, {
   foreignKey: 'user_id',
   onDelete: 'SET NULL'
+});
+
+User.hasMany(Comment, {
+  foriegnKey: 'user_id'
+});
+
+User.belongsTo(Post, {
+  foreignKey: 'user_id'
+});
+
+User.belongsTo(Comment, {
+  foreignKey: 'user_id',
+});
+
+User.belongsTo(Restaurant, {
+  foreign_key: 'user_id',
+});
+
+User.belongsToMany(Post, {
+  through: User,
+  as: 'user_id',
+});
+
+User.belongsToMany(Comment, {
+  through: User,
+  as: 'user_id',
+});
+
+//create comment associations
+Comment.belongsTo(Post, {
+  foreignKey: 'post_id',
+  onDelete: 'SET NULL'
+});
+
+Comment.belongsTo(User, {
+  foreignKey: 'user_id'
+});
+
+Comment.belongsTo(Restaurant, {
+  foreignKey: 'restaurant_id'
+});
+
+
+//create restaurant associations
+Restaurant.hasMany(Post, {
+  foriegnKey: 'restaurant_id'
+});
+
+Restaurant.hasMany(Comment, {
+  foriegnKey: 'restaurant_id'
+})
+
+Restaurant.belongsTo( Post, {
+  foriegnKey: 'restaurant_id'
+});
+
+Restaurant.belongsTo(User, {
+  foriegnKey: 'restaurant_id'
+});
+
+Restaurant.belongsToMany(Comment, {
+  foriegnKey: 'restaurant_id'
+});
+
+/*Vote.belongsTo(User, {
+  //foreignKey: 'user_id',
+  //onDelete: 'SET NULL'
 });
 
 Vote.belongsTo(Post, {
   foreignKey: 'post_id',
   onDelete: 'SET NULL'
 });
+*/
 
-User.hasMany(Vote, {
-  foreignKey: 'user_id'
-});
-
-Post.hasMany(Vote, {
-  foreignKey: 'post_id'
-});
-
-Comment.belongsTo(User, {
-  foreignKey: 'user_id',
-  onDelete: 'SET NULL'
-});
-
-Comment.belongsTo(Post, {
-  foreignKey: 'post_id',
-  onDelete: 'SET NULL'
-});
-
-User.hasMany(Comment, {
-  foreignKey: 'user_id',
-  onDelete: 'SET NULL'
-});
-
-Post.hasMany(Comment, {
-  foreignKey: 'post_id'
-});
-
-module.exports = { User, Post, Vote, Comment };
+module.exports = { Restaurant, User, Post, Comment };
