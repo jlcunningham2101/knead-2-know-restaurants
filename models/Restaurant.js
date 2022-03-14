@@ -40,7 +40,7 @@ Restaurant.init(
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'restaurant'
+        modelName: 'restaurant',
       }
 );
 

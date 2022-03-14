@@ -1,9 +1,6 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-
 // import all models
-const Post = require('./Post');
 const User = require('./User');
+const Post = require('./Post');
 const Comment = require('./Comment');
 const Restaurant = require('./Restaurant');
 //const Vote = require('./Vote');
@@ -73,7 +70,8 @@ Comment.belongsTo(Post, {
 });
 
 Comment.belongsTo(User, {
-  foreignKey: 'user_id'
+  foreignKey: 'user_id',
+  onDelete: 'SET NULL'
 });
 
 Comment.belongsTo(Restaurant, {
