@@ -1,11 +1,12 @@
 {
   "name": "social-media-app",
   "version": "1.0.0",
-  "description": "This site is for restaurants to have a virtual platform to showcase their menu items to potential patrons. Patrons are able to comment on the restaurant's post to share their 'inside scoop' on customer experience/opinion.",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest",
+    "start": "node server.js",
+    "seed": "node seeds/index.js"
   },
   "repository": {
     "type": "git",

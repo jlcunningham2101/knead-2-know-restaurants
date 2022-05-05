@@ -9,7 +9,6 @@
 - [Features](#features)
 - [Contributors](#contributors)
 - [Usage](#usage)
-- [Webpage-Screenshots](#screenshots)
 - [Tests](#tests)
 - [Deployed-Links](#links)
 - [Future-Development] (#development)
@@ -58,8 +57,6 @@ Jillian Cunningham, Aaron Laramee, and Shahbaaz Mustafa
 ## Usage
 
 This application aims to create a virtual platform for restaurants to showcase their food items and for patrons/potential patrons to interact with others about their experience
-
-## Webpage Screenshots
 
 ## Tests
 
